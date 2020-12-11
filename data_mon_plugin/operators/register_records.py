@@ -7,7 +7,7 @@ from es_plugin.hooks.es_hook import ESHook
 from datetime import datetime
 
 class RecordHiveOperator(BaseOperator):
-    """Operator do insert a registe for records on elasticsearch using 
+    """Operator to insert a register for records on elasticsearch using 
     the ESHook.
 
     Arguments:
@@ -52,6 +52,7 @@ class RecordHiveOperator(BaseOperator):
         # Schema of the record register - metatable
         the_records = self.get_records()
 
+        # @TODO - make the document to insert dynamic and dependent on another variable
         doc = {
             'warehouse': 'hive',
             'schema': self.schema,
@@ -85,6 +86,7 @@ class RecordHiveOperator(BaseOperator):
         elif self.query_engine == 'presto': 
             hook = PrestoHook(self.query_engine_conn_id)
         
+        # executes query to Hive or Presto
         res = hook.get_records(self.records_query)
 
         if len(res) > 1:

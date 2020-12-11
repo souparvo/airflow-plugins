@@ -1,19 +1,19 @@
 from airflow.contrib.hooks.sftp_hook import SFTPHook
 
-
 def check_file(**context):
-    """Recebe como input path para um ficheiro, uma conn id para a maquina com o ficheiro e 
-    testa se o ficheiro existe retornando os valore definidos nos inputs if_true e if_false
+    """Recieves as input the path to a file, a connection ID for the target host with
+    the file and tests if the file exists, returning the defined values from inputs
+    if_true and if_false
 
     Inputs:
         templates_dict:
-            f_path str -- full path para o ficheiro (templated)
+            f_path str -- full path to file (templated)
         op_kwargs:
-            if_true [any] -- valor de retorno se ficheiro existir
-            if_false [any] -- valor de retorno se ficheiro não existir
+            if_true [any] -- returned value if file exists
+            if_false [any] -- returned value if file doesn't exists
 
     Returns:
-        [any] -- Retorno definido pelas variaveis if_true e if_false
+        [any] -- return value defined by if_true and if_false
     """
     f_path = context['templates_dict']['file_path']
     conn = context['conn_id']
@@ -29,20 +29,20 @@ def check_file(**context):
 
 
 def evaluate_var(**context):
-    """Recebe 2 variaveis, uma condicao avaliadora e 2 resultados para caso se ja True ou False
-    o resultado do expressao avaliada.
+    """Receives 2 variables, the evaluation condition and the 2 results for the case of 
+    result is True or False 
 
     Inputs:
         templates_dict:
-            var_in str -- valor 1 para avaliar
-            var_eval str -- valor 2 da condicao para avaliar
+            var_in str -- value 1 to evaluate
+            var_eval str -- value 2 of the condition to evaluate
         op_kwargs:
-            expr str -- deve ser <,>,=,!=,<=,>= representa a expressão avaliadora
-            if_true [any] -- valor de retorno se ficheiro existir
-            if_false [any] -- valor de retorno se ficheiro não existir
+            expr str -- must be <,>,=,!=,<=,>= represents the evaluation condition
+            if_true [any] -- return value if result is True
+            if_false [any] -- return value if result is False
 
     Returns:
-        [any] -- Retorno definido pelas variaveis if_true e if_false
+        [any] -- return value defined by if_true and if_false
     """
 
     def eval_expr(if_statement, iftrue, iffalse):
