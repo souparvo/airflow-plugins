@@ -68,7 +68,7 @@ class RecordHiveOperator(BaseOperator):
             self.log.info("Inserting document into index %s" % self.index)
             res = es.insert_doc(index=self.index, document=doc)
             self.log.info("Inserted document, result: %s" % res)
-        # do xcom push
+        # do xcom push - can be checked on Airflow UI
         context['ti'].xcom_push('records', the_records)
 
         return res
